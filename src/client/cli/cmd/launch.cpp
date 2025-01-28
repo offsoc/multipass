@@ -238,9 +238,25 @@ mp::ParseCode cmd::Launch::parse_args(mp::ArgParser* parser)
                                    "mount point will be under /home/ubuntu/<source-dir>, where <source-dir> is "
                                    "the name of the <source> directory.",
                                    "source>:<target");
+    QCommandLineOption zonesOption{
+        "zone",
+        "Assign the instance to the specified availability zone. If not specified, one will be chosen automatically. "
+        "If multiple zones are specified, one instance will be launched for each zone.",
+        "zone",
+    };
 
-    parser->addOptions({cpusOption, diskOption, memOption, memOptionDeprecated, nameOption, cloudInitOption,
-                        networkOption, bridgedOption, mountOption});
+    parser->addOptions({
+        cpusOption,
+        diskOption,
+        memOption,
+        memOptionDeprecated,
+        nameOption,
+        cloudInitOption,
+        networkOption,
+        bridgedOption,
+        mountOption,
+        zonesOption,
+    });
 
     mp::cmd::add_timeout(parser);
 
@@ -439,6 +455,10 @@ mp::ParseCode cmd::Launch::parse_args(mp::ArgParser* parser)
 
     request.set_time_zone(QTimeZone::systemTimeZoneId().toStdString());
     request.set_verbosity_level(parser->verbosityLevel());
+
+    const auto zones = parser->values(zonesOption);
+    for (const auto& zone : std::set(zones.begin(), zones.end()))
+        request.add_zones(zone.toStdString());
 
     return status;
 }
