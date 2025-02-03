@@ -68,6 +68,78 @@ class BulkActionsBar extends ConsumerWidget {
         ),
     ];
 
-    return Row(children: actionButtons.gap(width: 8).toList());
+    return Container(
+      height: 36,
+      margin: const EdgeInsets.only(top: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ...actionButtons,
+                  const SizedBox(width: 8),
+                  const ZonesDropdown(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ZonesDropdown extends ConsumerWidget {
+  const ZonesDropdown({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PopupMenuButton(
+      offset: const Offset(0, 40),
+      child: OutlinedButton(
+        onPressed: null,
+        child: const Text('Zones', style: TextStyle(color: Colors.black)),
+      ),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              _ZoneToggleRow('zone1'),
+              SizedBox(height: 8),
+              _ZoneToggleRow('zone2'),
+              SizedBox(height: 8),
+              _ZoneToggleRow('zone3'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ZoneToggleRow extends ConsumerWidget {
+  final String zoneName;
+
+  const _ZoneToggleRow(this.zoneName);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final available = ref.watch(zoneStatusProvider(zoneName));
+    final client = ref.watch(grpcClientProvider);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('Zone $zoneName'),
+        Switch(
+          value: available,
+          onChanged: (value) => client.zonesState([zoneName], value),
+        ),
+      ],
+    );
   }
 }

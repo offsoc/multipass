@@ -90,6 +90,16 @@ final headers = <TableHeader<VmInfo>>[
     minWidth: 100,
     cellBuilder: (info) => IpAddresses(info.instanceInfo.ipv4.skip(1)),
   ),
+    TableHeader(
+    name: 'ZONE',
+    width: 100,
+    minWidth: 70,
+    sortKey: (info) => info.zone,
+    cellBuilder: (info) => Text(
+      info.zone.isNotBlank ? info.zone.nonBreaking : '-',
+      overflow: TextOverflow.ellipsis,
+    ),
+  ),
 ];
 
 class SelectAllCheckbox extends ConsumerWidget {
