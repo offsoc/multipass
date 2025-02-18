@@ -161,7 +161,8 @@ BaseAvailabilityZoneManager::BaseAvailabilityZoneManager(const fs::path& data_di
 
     // Create zone objects after all file operations are complete
     // This ensures zones are always created regardless of file operations
-    for (const auto& name : zone_names) {
+    for (const auto& name : zone_names)
+    {
         zones[name] = std::make_unique<BaseAvailabilityZone>(name, zones_directory);
     }
 }
