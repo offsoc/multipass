@@ -11,7 +11,7 @@ Custom images are only supported on Linux.
 
 The easiest way is to start from an existing [Ubuntu Cloud Image](https://cloud-images.ubuntu.com/), and the base project setup follows (you can click on the filenames to see their contents, `meta-data` is empty on purpose):
 
-```
+```{code-block} text
 ├── cloud-data
 │   ├── meta-data
 │   └── <a href="https://paste.ubuntu.com/p/6vbtNXttqZ/">user-data</a>
@@ -58,7 +58,7 @@ Anything you do here will be reflected in the resulting image. You can install p
 
 Go to [Packer's documentation](https://developer.hashicorp.com/packer/docs) to learn about the QEMU builder, other provisioners and their configurations as well as everything else that might come in handy. Alternatively, you could extend `user-data` with other `cloud-init` [modules](https://cloudinit.readthedocs.io/en/latest/reference/modules.html) to provision your image.
 
-Join the discussion on the [Multipass forum](https://discourse.ubuntu.com/c/multipass/) and let us know about your images!
+Join the discussion on the [Multipass forum](https://discourse.ubuntu.com/c/project/multipass/21) and let us know about your images!
 
 ---
 

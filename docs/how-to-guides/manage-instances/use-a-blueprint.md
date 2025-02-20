@@ -11,7 +11,7 @@ To see what blueprints are available, run
 multipass find --only-blueprints
 ```
 
-> See more: [`multipass find`](/reference/command-line-interface/find)
+> See also: [`find`](/reference/command-line-interface/find)
 
 To use a blueprint run:
 
@@ -29,7 +29,7 @@ This command will create an instance based on the Docker blueprint, with 4 CPU c
 
 Blueprints also provide a way of exchanging files between the host and the instance. For this, a folder named `multipass/<instance name>` is created in the user's home directory on the host and mounted in `<instance name>` in the user's home directory on the instance.
 
-> See more: [`multipass launch`](/reference/command-line-interface/launch)
+> See also: [`launch`](/reference/command-line-interface/launch)
 
 ---
 
