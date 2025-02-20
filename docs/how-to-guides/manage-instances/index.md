@@ -41,3 +41,4 @@ configure-static-ips
 use-a-blueprint
 use-the-docker-blueprint
 run-a-docker-container-in-multipass
+```
